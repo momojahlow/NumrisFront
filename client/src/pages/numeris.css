@@ -187,15 +187,15 @@ html {
   color: #126aa7;
 }
 .nav-cta {
-  min-height: 40px;
+  min-height: 34px;
   display: inline-flex;
   align-items: center;
-  gap: 11px;
-  padding: 0 19px;
-  border: 1px solid #0d5c98;
+  gap: 7px;
+  padding: 0 14px;
+  border: 1px solid var(--num-blue-mid);
   border-radius: 999px;
   color: white !important;
-  background: #0d5c98;
+  background: var(--num-blue-mid);
   transition:
     background 0.2s ease,
     transform 0.2s ease,
@@ -1832,7 +1832,7 @@ html {
   box-shadow: 0 24px 64px rgba(1, 18, 35, 0.22);
 }
 .contact-form-eyebrow {
-  color: #1671b5;
+  color: var(--num-blue);
   font-size: 9px;
   font-weight: 800;
   letter-spacing: 0.13em;
@@ -1876,7 +1876,7 @@ html {
   font-weight: 700;
 }
 .contact-field > span i {
-  color: #1671b5;
+  color: var(--num-blue);
   font-style: normal;
 }
 .contact-field input,
@@ -1903,9 +1903,9 @@ html {
 }
 .contact-field input:focus-visible,
 .contact-field textarea:focus-visible {
-  border-color: #1671b5;
+  border-color: var(--num-blue);
   background: #fff;
-  box-shadow: 0 0 0 3px rgba(22, 113, 181, 0.12);
+  box-shadow: 0 0 0 3px rgba(0, 103, 187, 0.12);
 }
 .contact-consent {
   display: flex;
@@ -1921,7 +1921,7 @@ html {
   width: 15px;
   height: 15px;
   margin: 1px 0 0;
-  accent-color: #0067bb;
+  accent-color: var(--num-blue);
 }
 .contact-honeypot {
   position: absolute;
@@ -1944,9 +1944,9 @@ html {
   gap: 9px;
   margin-top: 15px;
   padding: 0 16px;
-  border: 1px solid #0067bb;
+  border: 1px solid var(--num-blue);
   border-radius: 10px;
-  background: #0067bb;
+  background: var(--num-blue);
   color: #fff;
   font-size: 12px;
   font-weight: 800;
@@ -1958,7 +1958,7 @@ html {
 }
 .contact-submit:hover:not(:disabled) {
   transform: translateY(-1px);
-  background: #075a9c;
+  background: var(--num-blue-mid);
   box-shadow: 0 7px 18px rgba(0, 103, 187, 0.19);
 }
 .contact-submit:focus-visible,
@@ -2131,6 +2131,36 @@ html {
   color: rgba(223, 239, 247, 0.65);
   font-weight: 700;
 }
+.numeris-site .scroll-top-button {
+  position: fixed;
+  z-index: 35;
+  right: max(22px, env(safe-area-inset-right));
+  bottom: max(22px, env(safe-area-inset-bottom));
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  background: #0067bb;
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(6, 33, 58, 0.27);
+  animation: scroll-top-appear 0.2s ease-out;
+  cursor: pointer;
+  transition:
+    transform 0.18s ease,
+    background-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+.scroll-top-button:hover {
+  transform: translateY(-3px);
+  background: #075a9c;
+  box-shadow: 0 12px 28px rgba(6, 33, 58, 0.32);
+}
+.scroll-top-button:focus-visible {
+  outline: 3px solid #8ec9f0;
+  outline-offset: 4px;
+}
 .sr-only {
   position: absolute;
   width: 1px;
@@ -2145,6 +2175,16 @@ html {
   from {
     opacity: 0;
     transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes scroll-top-appear {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
@@ -2348,6 +2388,7 @@ html {
     border-bottom: 1px solid #edf1f4;
   }
   .nav-cta {
+    min-height: 44px;
     justify-content: center;
     margin-top: 14px;
   }
