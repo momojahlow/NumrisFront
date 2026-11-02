@@ -44,14 +44,14 @@ html {
 .numeris-utility {
   position: relative;
   z-index: 21;
-  min-height: 42px;
+  min-height: 39px;
   background: #123e61;
   color: rgba(244, 249, 253, 0.86);
   font-size: 12px;
 }
 .numeris-utility-inner {
   width: min(calc(100% - 64px), 1376px);
-  min-height: 42px;
+  min-height: 39px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -2560,7 +2560,7 @@ html {
 @media (max-width: 480px) {
   .numeris-utility-inner {
     width: calc(100% - 32px);
-    min-height: 39px;
+    min-height: 36px;
     gap: 8px;
   }
   .utility-help,
