@@ -1,4 +1,4 @@
-import { useRef, useState, type FormEvent } from "react";
+import { useRef, useState, type FormEvent, type SyntheticEvent } from "react";
 import {
   ArrowDown,
   ArrowRight,
@@ -122,6 +122,28 @@ export default function NumerisHome() {
       message: String(formData.get("message") ?? ""),
       consent: formData.get("consent") === "on",
       companyWebsite: String(formData.get("companyWebsite") ?? ""),
+    });
+  };
+  const handleFaqToggle = (event: SyntheticEvent<HTMLDetailsElement>) => {
+    const details = event.currentTarget;
+    if (!details.open) return;
+
+    requestAnimationFrame(() => {
+      const bounds = details.getBoundingClientRect();
+      const headerBottom =
+        document.querySelector(".numeris-header")?.getBoundingClientRect()
+          .bottom ?? 0;
+      const isOutsideViewport =
+        bounds.top < headerBottom + 12 ||
+        bounds.bottom > window.innerHeight - 16;
+
+      if (!isOutsideViewport) return;
+      details.scrollIntoView({
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+          ? "auto"
+          : "smooth",
+        block: "start",
+      });
     });
   };
   const askDemo = (event: FormEvent<HTMLFormElement>) => {
@@ -622,7 +644,7 @@ export default function NumerisHome() {
             </p>
           </div>
           <div className="faq-list">
-            <details>
+            <details onToggle={handleFaqToggle}>
               <summary>
                 Qu’est-ce que la numérisation documentaire intelligente&nbsp;?
                 <ChevronDown size={18} />
@@ -633,7 +655,7 @@ export default function NumerisHome() {
                 l’analyse automatisée.
               </p>
             </details>
-            <details>
+            <details onToggle={handleFaqToggle}>
               <summary>
                 Quelle est la différence entre OCR et RAG&nbsp;?
                 <ChevronDown size={18} />
@@ -644,7 +666,7 @@ export default function NumerisHome() {
                 contextualisée et reliée à ses sources.
               </p>
             </details>
-            <details>
+            <details onToggle={handleFaqToggle}>
               <summary>
                 Peut-on garder une validation humaine&nbsp;?
                 <ChevronDown size={18} />
