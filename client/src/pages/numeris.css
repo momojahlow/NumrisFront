@@ -2609,9 +2609,9 @@ html {
   .hero-visual {
     min-height: 335px;
     margin-top: 1px;
-    scale: 0.86;
-    width: 116%;
-    transform: translateX(-7%);
+    scale: 0.9;
+    width: 100%;
+    transform: none;
   }
   .document-card {
     width: 282px;
@@ -2624,16 +2624,16 @@ html {
   }
   .chip-rag {
     top: 21%;
-    right: -2%;
+    right: 0;
   }
   .extract-card {
     right: 0;
     bottom: 6%;
-    width: 218px;
+    width: min(218px, calc(100% - 20px));
     padding: 12px;
   }
   .visual-caption {
-    right: 0;
+    right: 2%;
     bottom: -1%;
     font-size: 8px;
   }
