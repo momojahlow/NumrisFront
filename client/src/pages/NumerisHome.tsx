@@ -128,23 +128,29 @@ export default function NumerisHome() {
     const details = event.currentTarget;
     if (!details.open) return;
 
-    requestAnimationFrame(() => {
-      const bounds = details.getBoundingClientRect();
-      const headerBottom =
-        document.querySelector(".numeris-header")?.getBoundingClientRect()
-          .bottom ?? 0;
-      const isOutsideViewport =
-        bounds.top < headerBottom + 12 ||
-        bounds.bottom > window.innerHeight - 16;
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    window.setTimeout(
+      () => {
+        requestAnimationFrame(() => {
+          const bounds = details.getBoundingClientRect();
+          const headerBottom =
+            document.querySelector(".numeris-header")?.getBoundingClientRect()
+              .bottom ?? 0;
+          const isOutsideViewport =
+            bounds.top < headerBottom + 12 ||
+            bounds.bottom > window.innerHeight - 16;
 
-      if (!isOutsideViewport) return;
-      details.scrollIntoView({
-        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
-          ? "auto"
-          : "smooth",
-        block: "start",
-      });
-    });
+          if (!isOutsideViewport) return;
+          details.scrollIntoView({
+            behavior: prefersReducedMotion ? "auto" : "smooth",
+            block: "start",
+          });
+        });
+      },
+      prefersReducedMotion ? 0 : 360
+    );
   };
   const askDemo = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();

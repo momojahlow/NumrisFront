@@ -1760,7 +1760,7 @@ html {
 .faq-list summary svg {
   flex: 0 0 auto;
   color: #71899c;
-  transition: transform 0.2s ease;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .faq-list details[open] summary svg {
   transform: rotate(180deg);
@@ -1768,10 +1768,23 @@ html {
 .faq-list details > p {
   max-width: 650px;
   margin: -1px 0 19px;
+  overflow: hidden;
   color: #788b99;
   font-size: 11px;
   line-height: 1.8;
-  animation: response-in 0.2s ease both;
+  animation: faq-answer-expand 360ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes faq-answer-expand {
+  from {
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    max-height: 260px;
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .contact-section {
