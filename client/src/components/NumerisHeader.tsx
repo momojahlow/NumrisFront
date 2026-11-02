@@ -105,11 +105,8 @@ export default function NumerisHeader({
                 <a href={sectionHref("contact")} onClick={closeMenu}>
                   Contact
                 </a>
-                <a className="nav-login" href={loginHref} onClick={closeMenu}>
-                  Se connecter
-                </a>
-                <a className="nav-cta" href={quoteHref} onClick={closeMenu}>
-                  Demander un devis <ArrowUpRight size={16} />
+                <a className="nav-cta" href={loginHref} onClick={closeMenu}>
+                  Se connecter <ArrowUpRight size={16} />
                 </a>
               </nav>
             </>
