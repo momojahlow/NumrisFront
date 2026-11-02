@@ -164,8 +164,8 @@ export default function NumerisHome() {
                 métiers.
               </p>
               <div className="hero-actions">
-                <a className="button button-primary" href="#plateforme">
-                  Découvrir la plateforme <ArrowRight size={18} />
+                <a className="button button-primary" href="/devis#quote-form">
+                  Demander un devis <ArrowRight size={18} />
                 </a>
                 <a className="button button-ghost" href="#demo">
                   <span className="play-icon">
