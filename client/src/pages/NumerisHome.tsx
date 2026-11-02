@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from "react";
+import { useRef, useState, type FormEvent } from "react";
 import {
   ArrowDown,
   ArrowRight,
@@ -6,6 +6,7 @@ import {
   BadgeCheck,
   BookOpenText,
   Check,
+  CheckCircle2,
   ChevronDown,
   Database,
   FileCheck2,
@@ -23,6 +24,7 @@ import {
   Zap,
 } from "lucide-react";
 import NumerisLayout from "@/components/NumerisLayout";
+import { trpc } from "@/lib/trpc";
 import "./numeris.css";
 
 const questions = [
@@ -90,6 +92,38 @@ export default function NumerisHome() {
   const [active, setActive] = useState(0);
   const [customQuestion, setCustomQuestion] = useState("");
   const [notice, setNotice] = useState("");
+  const contactFormRef = useRef<HTMLFormElement>(null);
+  const [contactReference, setContactReference] = useState("");
+  const [contactError, setContactError] = useState("");
+  const submitContact = trpc.quote.submit.useMutation({
+    onSuccess: result => {
+      setContactReference(result.reference);
+      setContactError("");
+      contactFormRef.current?.reset();
+    },
+    onError: () => {
+      setContactError(
+        "Votre message n’a pas pu être envoyé. Réessayez dans quelques instants."
+      );
+    },
+  });
+  const handleContactSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setContactError("");
+    const formData = new FormData(event.currentTarget);
+    submitContact.mutate({
+      firstName: String(formData.get("firstName") ?? ""),
+      lastName: String(formData.get("lastName") ?? ""),
+      company: String(formData.get("company") ?? "").trim() || "Particulier",
+      email: String(formData.get("email") ?? ""),
+      phone: String(formData.get("phone") ?? ""),
+      projectType: "complete",
+      volume: "unknown",
+      message: String(formData.get("message") ?? ""),
+      consent: formData.get("consent") === "on",
+      companyWebsite: String(formData.get("companyWebsite") ?? ""),
+    });
+  };
   const askDemo = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!customQuestion.trim()) return;
@@ -624,26 +658,164 @@ export default function NumerisHome() {
           </div>
         </section>
 
-        <section className="contact-section" id="contact">
+        <section
+          className="contact-section"
+          id="contact"
+          aria-labelledby="contact-title"
+        >
           <div className="contact-inner">
             <div className="contact-orb" />
-            <div>
+            <div className="contact-copy">
               <span className="eyebrow eyebrow-light">
-                <i className="eyebrow-mark" /> VOTRE PROCHAINE PAGE COMMENCE ICI
+                <i className="eyebrow-mark" /> CONTACT · SMART PRINT
               </span>
-              <h2>
-                Et si vos documents
+              <h2 id="contact-title">
+                Parlons de votre projet
                 <br />
-                <em>vous répondaient&nbsp;?</em>
+                <em>documentaire.</em>
               </h2>
               <p>
-                Explorez la démo et imaginez ce que vos équipes pourraient
-                retrouver en quelques secondes.
+                Une question sur la numérisation, l’OCR ou le RAG&nbsp;?
+                Décrivez votre besoin et Smart Print vous recontactera.
               </p>
+              <div className="contact-assurance">
+                <ShieldCheck size={17} /> Vos coordonnées sont utilisées pour
+                répondre à votre demande.
+              </div>
             </div>
-            <a className="button button-light" href="/devis#quote-form">
-              Demander un devis <ArrowRight size={18} />
-            </a>
+            <div className="contact-form-card">
+              {contactReference ? (
+                <div className="contact-success" role="status">
+                  <CheckCircle2 size={28} aria-hidden="true" />
+                  <span className="contact-form-eyebrow">
+                    MESSAGE ENREGISTRÉ
+                  </span>
+                  <h3>Merci pour votre message.</h3>
+                  <p>Smart Print reviendra vers vous dès que possible.</p>
+                  <span className="contact-reference">
+                    Référence <strong>{contactReference}</strong>
+                  </span>
+                  <button
+                    className="contact-new-message"
+                    type="button"
+                    onClick={() => {
+                      setContactReference("");
+                      submitContact.reset();
+                    }}
+                  >
+                    Envoyer un autre message
+                  </button>
+                </div>
+              ) : (
+                <>
+                  <div className="contact-form-heading">
+                    <span className="contact-form-eyebrow">ÉCRIVEZ-NOUS</span>
+                    <h3>Comment pouvons-nous vous aider&nbsp;?</h3>
+                    <p>Les champs marqués d’un astérisque sont obligatoires.</p>
+                  </div>
+                  <form
+                    ref={contactFormRef}
+                    className="contact-form"
+                    onSubmit={handleContactSubmit}
+                  >
+                    <div className="contact-form-grid">
+                      <label className="contact-field">
+                        <span>
+                          Prénom <i>*</i>
+                        </span>
+                        <input
+                          autoComplete="given-name"
+                          name="firstName"
+                          maxLength={100}
+                          required
+                        />
+                      </label>
+                      <label className="contact-field">
+                        <span>
+                          Nom <i>*</i>
+                        </span>
+                        <input
+                          autoComplete="family-name"
+                          name="lastName"
+                          maxLength={100}
+                          required
+                        />
+                      </label>
+                      <label className="contact-field contact-field-wide">
+                        <span>Entreprise / organisation</span>
+                        <input
+                          autoComplete="organization"
+                          name="company"
+                          maxLength={191}
+                        />
+                      </label>
+                      <label className="contact-field">
+                        <span>
+                          Adresse e-mail <i>*</i>
+                        </span>
+                        <input
+                          autoComplete="email"
+                          type="email"
+                          name="email"
+                          maxLength={320}
+                          required
+                        />
+                      </label>
+                      <label className="contact-field">
+                        <span>Téléphone</span>
+                        <input
+                          autoComplete="tel"
+                          type="tel"
+                          name="phone"
+                          maxLength={32}
+                        />
+                      </label>
+                      <label className="contact-field contact-field-wide">
+                        <span>
+                          Votre message <i>*</i>
+                        </span>
+                        <textarea
+                          name="message"
+                          rows={4}
+                          maxLength={2000}
+                          required
+                          placeholder="Décrivez votre question ou votre besoin…"
+                        />
+                      </label>
+                      <label className="contact-consent contact-field-wide">
+                        <input type="checkbox" name="consent" required />
+                        <span>
+                          J’accepte que Smart Print utilise ces informations
+                          pour répondre à ma demande.
+                        </span>
+                      </label>
+                      <div className="contact-honeypot" aria-hidden="true">
+                        <input
+                          name="companyWebsite"
+                          tabIndex={-1}
+                          autoComplete="off"
+                        />
+                      </div>
+                    </div>
+                    {contactError && (
+                      <p className="contact-form-error" role="alert">
+                        {contactError}
+                      </p>
+                    )}
+                    <button
+                      className="contact-submit"
+                      type="submit"
+                      disabled={submitContact.isPending}
+                    >
+                      {submitContact.isPending
+                        ? "Envoi en cours…"
+                        : "Envoyer mon message"}
+                      {!submitContact.isPending && <ArrowRight size={17} />}
+                    </button>
+                  </form>
+                </>
+              )}
+            </div>
           </div>
         </section>
       </main>

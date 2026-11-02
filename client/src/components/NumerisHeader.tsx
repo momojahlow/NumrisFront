@@ -102,6 +102,9 @@ export default function NumerisHeader({
                 <a href={sectionHref("questions")} onClick={closeMenu}>
                   FAQ
                 </a>
+                <a href={sectionHref("contact")} onClick={closeMenu}>
+                  Contact
+                </a>
                 <a className="nav-login" href={loginHref} onClick={closeMenu}>
                   Se connecter
                 </a>

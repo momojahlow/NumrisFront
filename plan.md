@@ -9,7 +9,7 @@ Créer dans l’application React existante une landing page française pour Num
 - **Mouvement :** SaaS éditorial contemporain, avec une interface documentaire sobre et des touches de visualisation produit.
 - **Principes :** clarté, traçabilité, confiance et maîtrise des usages métiers.
 - **Palette :** couleurs du logo officiel fourni : bleu `#0067bb`, noir et blanc. Le bleu identifie la technologie, les actions et les sélections; le bleu nuit ancre les barres d’espace de travail; le noir, le blanc et les gris bleutés préservent contraste et lisibilité. Les couleurs de statut restent sémantiques; aucun turquoise décoratif n’est repris de l’image de référence.
-- **Mise en page :** grand hero bleu nuit, titre éditorial à gauche et visualisation du document traité à droite; sections claires et asymétriques pour le flux de traitement, la technologie, la démonstration, la confiance et la FAQ. Une barre de contact bleu nuit défile hors de l’écran, tandis que la navigation blanche reste sticky en haut avec une ombre légère au scroll.
+- **Mise en page :** grand hero bleu nuit, titre éditorial à gauche et visualisation du document traité à droite; sections claires et asymétriques pour le flux de traitement, la technologie, la démonstration, la confiance et la FAQ, suivies d’un formulaire contact responsive en fin de page. Une barre de contact bleu nuit défile hors de l’écran, tandis que la navigation blanche reste sticky en haut avec une ombre légère au scroll.
 - **Signatures :** marque documentaire compacte, faisceau de scan animé et panneau RAG affichant ses sources.
 - **Interactions et animations :** navigation mobile repliable, liens d’ancrage, démonstration locale interactive, cartes au survol et mouvement discret du faisceau/illustrations; respecter `prefers-reduced-motion`.
 - **Typographie :** Manrope pour les titres et le logotype, DM Sans pour le corps, en cohérence avec la référence Digiassur fournie.
@@ -22,6 +22,8 @@ Créer dans l’application React existante une landing page française pour Num
 
 La page `/devis` permet de choisir une prestation (numérisation, OCR/extraction, RAG ou projet global), d’estimer le volume documentaire et de décrire le besoin. Les coordonnées sont validées côté client et serveur; un honeypot réduit le spam; la demande est enregistrée côté serveur avec une référence de suivi. Aucun fichier n’est demandé ni téléversé.
 
+La navigation principale inclut un lien « Contact » vers la dernière section de l’accueil. Son formulaire demande les coordonnées et le message avec consentement explicite, masque un honeypot et réutilise la mutation de demandes existante pour l’enregistrement et la référence de suivi.
+
 ## Connexion
 
 Pour cette simulation, le bouton de `/connexion` ouvre `/dashboard`, un tableau de bord de démonstration utilisant uniquement des données fictives côté client. Aucun compte, document, service IA ou stockage réel n’est sollicité. La route `/admin` reste distincte et conserve sa protection par authentification et rôle admin.
@@ -33,7 +35,7 @@ Les espaces de travail partagent `NumerisWorkspace` : navigation latérale clair
 ## Structure du projet
 
 - `client/src/pages/Home.tsx` : point d’entrée de la page d’accueil.
-- `client/src/pages/NumerisHome.tsx` : contenu React de la landing page.
+- `client/src/pages/NumerisHome.tsx` : contenu React de la landing page, démonstration locale et formulaire contact final.
 - `client/src/components/NumerisHeader.tsx` : navigation et identité Numeris partagées.
 - `client/src/components/NumerisWorkspace.tsx` : shell responsive partagé par la démo et l’espace admin protégé.
 - `client/src/components/DemoAnalytics.tsx` : graphiques de démonstration, sans dépendance à une source réelle.
