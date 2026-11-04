@@ -2357,6 +2357,44 @@ html {
     gap: 45px;
   }
 }
+@media (min-width: 781px) and (max-width: 1000px) {
+  .numeris-header-inner {
+    width: calc(100% - 40px);
+    min-height: 56px;
+    gap: 20px;
+  }
+  .numeris-menu-toggle {
+    display: inline-flex;
+  }
+  .numeris-nav {
+    position: absolute;
+    top: calc(100% - 1px);
+    left: 0;
+    right: 0;
+    display: none;
+    align-items: stretch;
+    gap: 0;
+    padding: 11px 20px 20px;
+    border-top: 1px solid #edf1f4;
+    background: rgba(255, 255, 255, 0.99);
+    color: #536b80;
+    box-shadow: 0 22px 30px rgba(0, 25, 46, 0.12);
+  }
+  .numeris-nav.is-open {
+    display: flex;
+    flex-direction: column;
+    animation: rise-in 0.18s ease both;
+  }
+  .numeris-nav > a:not(.nav-cta) {
+    padding: 11px 2px;
+    border-bottom: 1px solid #edf1f4;
+  }
+  .nav-cta {
+    min-height: 44px;
+    justify-content: center;
+    margin-top: 14px;
+  }
+}
 @media (max-width: 780px) {
   html {
     scroll-padding-top: 72px;
