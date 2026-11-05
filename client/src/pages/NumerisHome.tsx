@@ -169,7 +169,7 @@ export default function NumerisHome() {
           <div className="hero-printer-stage" aria-hidden="true">
             <img
               className="hero-printer-backdrop"
-              src="/smart-printer-transparent.png"
+              src="/smart-printer-transparent.webp"
               alt=""
             />
             <div className="hero-paper-trail">
